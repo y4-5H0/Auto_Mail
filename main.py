@@ -1,6 +1,8 @@
+import time
 from mailer import send_email
 from generate_email import generate_email
 from utils import get_email_list
+from config import EMAIL_DELAY
 
 EMAIL_FILE = "data/recipients.xlsx"
 SIGNATURE = "Best regards,\nYour Name"
@@ -15,3 +17,6 @@ for recipient in emails:
     subject_line = full_email.splitlines()[0]  # Assuming the first line is the subject
     body = '\n'.join(full_email.splitlines()[1:])  # The rest is the body
     send_email(recipient, subject_line, body)
+    
+    print(f"[{i}] Sent to {recipient}. Waiting for {EMAIL_DELAY} seconds before sending the next email.")
+    time.sleep(EMAIL_DELAY)  # Wait before sending the next email
